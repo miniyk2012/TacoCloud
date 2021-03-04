@@ -27,4 +27,14 @@ public class HomeControllerTest {
                 .andExpect(content().string(           // <6>
                 containsString("Welcome To...")));
     }
+
+    @Test
+    public void testOrderController() throws Exception {
+        mockMvc.perform(get("/orders/current"))    // <3>
+                .andExpect(status().isOk())  // <4>
+                .andExpect(view().name("orderForm"))  // <5>
+                .andExpect(content().string(           // <6>
+                        containsString("Order your taco creations!")));
+    }
+
 }
