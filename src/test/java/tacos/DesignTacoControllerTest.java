@@ -6,15 +6,19 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import static
         org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static
         org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.http.MediaType;
+import tacos.data.IngredientRepository;
+import tacos.data.OrderRepository;
+import tacos.data.TacoRepository;
 import tacos.web.DesignTacoController;
 import tacos.Ingredient.Type;
 
@@ -26,6 +30,12 @@ import java.util.List;
 public class DesignTacoControllerTest {
     @Autowired
     private MockMvc mockMvc;
+
+    @MockBean
+    private IngredientRepository ingredientRepository;
+
+    @MockBean
+    private TacoRepository designRepository;
 
     private List<Ingredient> ingredients;
     private Taco design;
@@ -44,6 +54,11 @@ public class DesignTacoControllerTest {
                 new Ingredient("SLSA", "Salsa", Type.SAUCE),
                 new Ingredient("SRCR", "Sour Cream", Type.SAUCE)
         );
+        when(ingredientRepository.findAll())
+                .thenReturn(ingredients);
+        when(ingredientRepository.findById("FLTO")).thenReturn(new Ingredient("FLTO", "Flour Tortilla", Type.WRAP));
+        when(ingredientRepository.findById("GRBF")).thenReturn(new Ingredient("GRBF", "Ground Beef", Type.PROTEIN));
+        when(ingredientRepository.findById("CHED")).thenReturn(new Ingredient("CHED", "Cheddar", Type.CHEESE));
 
         design = new Taco();
         design.setName("Test Taco");
