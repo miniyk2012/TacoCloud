@@ -24,6 +24,8 @@ public class Order implements Serializable {
     private Long id;
 
     private Date placedAt;
+    @ManyToOne
+    private User user;
 
     //end::allButDetailProperties[]
     @NotBlank(message = "Delivery name is required")
