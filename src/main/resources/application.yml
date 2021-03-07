@@ -1,0 +1,14 @@
+spring:
+#  profiles:
+#    active: prod
+  jpa:
+    show-sql: true
+
+taco:
+  orders:
+    page-size: 10
+
+  discount:
+    codes:
+      abcdef: 10
+      yangkai: 20
