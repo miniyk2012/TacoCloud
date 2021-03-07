@@ -45,6 +45,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginPage("/login")
                 .and()
                 .logout()
-                .logoutSuccessUrl("/");
+                .logoutSuccessUrl("/")
+                .and()
+                .csrf()
+                .ignoringAntMatchers("/h2-console/**")
+                // Allow pages to be loaded in frames from the same origin; needed for H2-Console
+                // tag::frameOptionsSameOrigin[]
+                .and()
+                .headers()
+                .frameOptions()
+                .sameOrigin();
     }
 }
